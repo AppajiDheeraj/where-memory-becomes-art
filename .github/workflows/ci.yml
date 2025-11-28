@@ -49,6 +49,9 @@ jobs:
 
     - name: Spell Check
       uses: rojopolis/spellcheck-github-actions@v0.33.1
+      with:
+        config_path: .github/spellcheck.yml
+
 
   security-scan:
     name: Static Code Security (CodeQL + Semgrep)
