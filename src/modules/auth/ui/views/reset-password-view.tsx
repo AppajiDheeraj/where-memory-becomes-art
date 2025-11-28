@@ -19,8 +19,8 @@ import { setPasswordAction } from "@/app/actions/set-password"
 const formSchema = z.object({
     password: z.string()
         .min(8, { message: "Password must be at least 8 characters long" })
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, { 
-            message: "Password must contain at least one uppercase letter, one lowercase letter, and one number" 
+        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
+            message: "Password must contain at least one uppercase letter, one lowercase letter, and one number"
         }),
     confirmPassword: z.string().min(1, { message: "Confirm Password is required" }),
 }).refine((data => data.password === data.confirmPassword), {
@@ -34,11 +34,11 @@ export const ResetPasswordView = () => {
     const [error, setError] = useState<string | null>(null)
     const [pending, setPending] = useState(false);
     const router = useRouter();
-    
+
     const { data: userProfile, isLoading } = useQuery(
         trpc.settings.getProfile.queryOptions()
     )
-    
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -66,8 +66,8 @@ export const ResetPasswordView = () => {
             // Also invalidate any other related queries
             await queryClient.invalidateQueries({
                 predicate: (query) => {
-                    return query.queryKey.some(key => 
-                        typeof key === 'string' && 
+                    return query.queryKey.some(key =>
+                        typeof key === 'string' &&
                         (key.includes('settings') || key.includes('profile') || key.includes('user'))
                     );
                 }
@@ -79,7 +79,7 @@ export const ResetPasswordView = () => {
             );
 
             toast.success("Password set successfully. You can now enable 2FA.");
-            
+
             // Small delay to ensure data is updated before navigation
             setTimeout(() => {
                 router.push("/settings");
@@ -119,7 +119,7 @@ export const ResetPasswordView = () => {
                                         Set a password for your account to enable Two-Factor Authentication
                                     </p>
                                 </div>
-                                
+
                                 <div className="grid gap-3">
                                     <div>
                                         <FormLabel>Email</FormLabel>
@@ -139,17 +139,17 @@ export const ResetPasswordView = () => {
                                             <FormItem>
                                                 <FormLabel>New Password</FormLabel>
                                                 <FormControl>
-                                                    <Input 
-                                                        type="password" 
-                                                        placeholder="Enter your new password" 
-                                                        {...field} 
+                                                    <Input
+                                                        type="password"
+                                                        placeholder="Enter your new password"
+                                                        {...field}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
-                                    
+
                                     <FormField
                                         control={form.control}
                                         name="confirmPassword"
@@ -157,10 +157,10 @@ export const ResetPasswordView = () => {
                                             <FormItem>
                                                 <FormLabel>Confirm Password</FormLabel>
                                                 <FormControl>
-                                                    <Input 
-                                                        type="password" 
-                                                        placeholder="Confirm your new password" 
-                                                        {...field} 
+                                                    <Input
+                                                        type="password"
+                                                        placeholder="Confirm your new password"
+                                                        {...field}
                                                     />
                                                 </FormControl>
                                                 <FormMessage />
@@ -168,26 +168,26 @@ export const ResetPasswordView = () => {
                                         )}
                                     />
                                 </div>
-                                
+
                                 {!!error && (
                                     <Alert className="bg-destructive/10 border-destructive/20">
                                         <OctagonAlertIcon className="h-4 w-4 !text-destructive" />
                                         <AlertTitle className="text-destructive">{error}</AlertTitle>
                                     </Alert>
                                 )}
-                                
+
                                 <div className="flex gap-2">
-                                    <Button 
+                                    <Button
                                         type="button"
-                                        variant="outline" 
+                                        variant="outline"
                                         onClick={() => router.push("/settings")}
                                         className="flex-1"
                                     >
                                         Cancel
                                     </Button>
-                                    <Button 
-                                        disabled={pending} 
-                                        className="flex-1" 
+                                    <Button
+                                        disabled={pending}
+                                        className="flex-1"
                                         type="submit"
                                     >
                                         {pending ? "Setting Password..." : "Set Password"}
@@ -198,7 +198,7 @@ export const ResetPasswordView = () => {
                     </Form>
                 </CardContent>
             </Card>
-            
+
             <div className="text-muted-foreground text-center text-sm text-balance">
                 <p>
                     By setting a password, you agree to our{" "}

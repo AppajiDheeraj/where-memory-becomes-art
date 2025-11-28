@@ -1,0 +1,7 @@
+matrix:
+  - name: Markdown
+    path: "**/*.md"
+    dictionaries:
+      - en_US
+    hunspell:
+      extra_dictionaries: []
