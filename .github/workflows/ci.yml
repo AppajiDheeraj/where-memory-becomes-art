@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  gitleaks:
+    name: Secret Scan (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lint-test:
+    name: Lint • TypeCheck • Markdown
+    runs-on: ubuntu-latest
+    needs: gitleaks
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: TypeScript Type Check
+        run: npm run typecheck
+
+      - name: Markdown Lint
+        uses: articulate/actions-markdownlint@v1
+        with:
+          files: "**/*.md"
+
+      - name: Spell Check
+        uses: reviewdog/action-spellcheck@v1
+        with:
+          args: "--ext md,txt"
+
+  security-scan:
+    name: Static Code Security (CodeQL + Semgrep)
+    runs-on: ubuntu-latest
+    needs: lint-test
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # CodeQL
+      - name: Init CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      # Semgrep
+      - name: Semgrep Scan
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: "p/ci"
