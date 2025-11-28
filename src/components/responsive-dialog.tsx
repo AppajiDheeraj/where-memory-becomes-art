@@ -9,7 +9,6 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 
-import { Dialog } from "@/components/ui/dialog";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ResponsiveDialogProps {

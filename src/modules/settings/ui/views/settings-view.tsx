@@ -3,8 +3,6 @@
 import { Separator } from "@/components/ui/separator";
 import { ProfileSection } from "../components/profile-section"
 import { authClient } from "@/lib/auth-client";
-import { useTRPC } from "@/trpc/client";
-import { useQuery } from "@tanstack/react-query";
 import { SettingsSection } from "../components/settings-section";
 export const SettingsView = () => {
     const { data } = authClient.useSession();

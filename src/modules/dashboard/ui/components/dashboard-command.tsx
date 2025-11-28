@@ -1,7 +1,7 @@
 import { CommandResponsiveDialog, CommandInput, CommandItem, CommandList, CommandGroup, CommandEmpty } from "@/components/ui/command";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
-import { BookOpen, Sparkles, Images, User } from "lucide-react";
+import { BookOpen, Images, User } from "lucide-react";
 
 interface Props {
   open: boolean;

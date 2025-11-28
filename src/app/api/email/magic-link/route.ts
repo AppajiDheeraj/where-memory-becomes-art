@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { render } from "@react-email/render";
-import MagicLinkEmail from "@/emails/templates/MagicLinkEmail";
 import { transporter } from "@/server/mail/transporter";
-import React from "react";
 import EmailTemplates from "@/emails";
 
 export async function POST(req: Request) {

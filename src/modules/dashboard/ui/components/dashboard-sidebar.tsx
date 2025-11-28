@@ -14,19 +14,14 @@ import {
   SidebarRail,
   SidebarGroupLabel
 } from "@/components/ui/sidebar";
-import { cn } from "@/lib/utils";
 import {
   HomeIcon,
   BookOpen,
   User,
-  GalleryHorizontalEnd,
   Inbox,
   Settings,
   ChevronRight,
   ChevronDown,
-  Video,
-  MessageSquare,
-  FolderOpen,
   LucideMoreHorizontal
 } from "lucide-react";
 

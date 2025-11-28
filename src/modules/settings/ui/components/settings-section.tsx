@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,14 +9,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { authClient } from "@/lib/auth-client";
 import { parseUserAgentInfo } from "@/lib/parse-user-agent";
-import { LaptopIcon, SmartphoneIcon } from "lucide-react";
 import { useTRPC } from "@/trpc/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import { isValidPhoneNumber } from "libphonenumber-js";
-import { useRouter } from "next/navigation";
 
 interface Session {
   id: string;
@@ -29,7 +27,6 @@ interface Session {
 export const SettingsSection = () => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
-  const router = useRouter();
 
   const { data: userProfile, isLoading, refetch } = useQuery(
     trpc.settings.getProfile.queryOptions()

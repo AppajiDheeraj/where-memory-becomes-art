@@ -2,9 +2,6 @@ import { auth } from "@/lib/auth";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { cache } from "react";
 import { headers } from "next/headers";
-import { db } from "@/db";
-import { user } from "@/db/schema";
-import { count, eq } from "drizzle-orm";
 export const createTRPCContext = cache(async () => {
   /**
    * @see: https://trpc.io/docs/server/context
