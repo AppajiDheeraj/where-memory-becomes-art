@@ -92,8 +92,8 @@ export const SettingsSection = () => {
   );
 
   const handleSave = () => {
-    if (phone && !isValidPhoneNumber(phone, "IN")) {
-      toast.error("Please enter a valid Indian phone number.");
+    if (phone && !isValidPhoneNumber(`+${phone}`)) {
+      toast.error("Please enter a valid phone number.");
       return;
     }
 
