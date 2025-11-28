@@ -92,9 +92,12 @@ export const SettingsSection = () => {
   );
 
   const handleSave = () => {
-    if (phone && !isValidPhoneNumber(`+${phone}`)) {
-      toast.error("Please enter a valid phone number.");
-      return;
+    if (phone) {
+      const phoneWithPrefix = phone.startsWith("+") ? phone : `+${phone}`;
+      if (!isValidPhoneNumber(phoneWithPrefix)) {
+        toast.error("Please enter a valid phone number.");
+        return;
+      }
     }
 
     updateSettings.mutate({
