@@ -48,10 +48,7 @@ jobs:
         files: "**/*.md"
 
     - name: Spell Check
-      uses: reviewdog/action-misspell@v1
-      with:
-        locale: "US"
-        path: "**/*.md"
+      uses: rojopolis/spellcheck-github-actions@v0.33.1
 
   security-scan:
     name: Static Code Security (CodeQL + Semgrep)
