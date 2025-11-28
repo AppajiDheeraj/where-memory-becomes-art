@@ -155,7 +155,9 @@ export const SettingsSection = () => {
           <div className="flex flex-col gap-2">
             <Label>Phone Number</Label>
             <PhoneInput
-              country={"in"}
+              country={"us"}
+              enableSearch={true}
+              preferredCountries={["us", "gb", "in", "ca", "au"]}
               value={phone}
               onChange={(ph) => setPhone(ph)}
               inputClass="!pl-14 !pr-3 !py-2 !w-full !rounded-md !border"
